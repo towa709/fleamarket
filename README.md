@@ -67,6 +67,11 @@ chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 ```
 
+10. テストの実行
+```bash
+php artisan test --env=testing
+```
+
 実施内容
 ・各機能ごとに Feature テスト を作成
 ・会員登録・ログイン・ログアウト
