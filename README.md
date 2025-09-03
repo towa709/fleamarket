@@ -53,6 +53,13 @@ php artisan db:seed
 ```bash
 php artisan storage:link
 ```
+9.  アクセス時に Permission denied エラーが出る場合は以下を実行してください。
+```bash
+docker-compose exec php bash
+chown -R www-data:www-data storage bootstrap/cache
+chmod -R 775 storage bootstrap/cache
+```
+
 実施内容
 ・各機能ごとに Feature テスト を作成
 ・会員登録・ログイン・ログアウト
