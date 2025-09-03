@@ -28,6 +28,8 @@ STRIPE_SECRET=your_stripe_secret_key_here
 # 注意
 STRIPE_KEY と STRIPE_SECRET は Stripe ダッシュボードから取得してください。
 ここではダミー値が入っています。
+ Stripe テストキーはこちらから取得できます:  
+  https://dashboard.stripe.com/test/apikeys
 また、初回ビルド後、`src/` ディレクトリが root 権限になる場合があります。  
 その際は以下を実行して権限を修正してください：  
 ```bash
@@ -49,22 +51,20 @@ docker-compose up -d
 ``` bash
 php artisan migrate --seed
 ```
-7. シーディングの実行
-``` bash
-php artisan db:seed
-```
-8. ストレージのリンク作成（画像保存用）
+※これでマイグレーションとデータ投入は完了です
+
+7. ストレージのリンク作成（画像保存用）
 ```bash
 php artisan storage:link
 ```
-9.  アクセス時に Permission denied エラーが出る場合は以下を実行してください。
+8.  アクセス時に Permission denied エラーが出る場合は以下を実行してください。
 ```bash
 docker-compose exec php bash
 chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 ```
 
-10. テストの実行
+9. テストの実行
 ```bash
 php artisan test --env=testing
 ```
@@ -105,5 +105,5 @@ ER図は、要件定義シートのテーブル仕様書に貼り付け済み。
 
 ## URL
 - 開発環境：http://localhost
-- phpMyAdmin:：http://localhost:8080
-- Mailhog: http://localhost:8025
+- phpMyAdmin: http://localhost:8080
+- MailHog: http://localhost:8025
