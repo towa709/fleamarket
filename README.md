@@ -5,18 +5,6 @@
 3. DockerDesktopアプリを立ち上げる
 4. `docker-compose up -d --build`
 
-※注意事項  
-初回ビルド後、`src/` ディレクトリが root 権限になる場合があります。  
-その際は以下を実行して権限を修正してください：  
-```bash
-sudo chown -R $(whoami):$(whoami) src
-```
-MySQL の初期化エラー（--initialize specified but the data directory has files in it）が出る場合は、以下でデータディレクトリを削除して再起動してください：
-```bash
-docker-compose down
-sudo rm -rf ./docker/mysql/data/*
-docker-compose up -d
-```
 **Laravel環境構築**
 1. `docker-compose exec php bash`
 2. `composer install`
@@ -43,13 +31,24 @@ STRIPE_SECRET=your_stripe_secret_key_here
 # 注意
 STRIPE_KEY と STRIPE_SECRET は Stripe ダッシュボードから取得してください。
 ここではダミー値が入っています。
+また、初回ビルド後、`src/` ディレクトリが root 権限になる場合があります。  
+その際は以下を実行して権限を修正してください：  
+```bash
+sudo chown -R $(whoami):$(whoami) .
+```
 
 5. アプリケーションキーの作成
 ``` bash
 php artisan key:generate
 ```
 
-6. マイグレーションの実行
+6. マイグレーションの実行時に、MySQL の初期化エラー（--initialize specified but the data directory has files in it）が出る場合は、以下でデータディレクトリを削除して再起動した後、再度マイグレーションを実行してください。
+```bash
+docker-compose down
+sudo rm -rf ./docker/mysql/data/*
+docker-compose up -d
+```
+
 ``` bash
 php artisan migrate
 ```
