@@ -71,6 +71,7 @@ chmod -R 775 storage bootstrap/cache
 ```bash
 php artisan test --env=testing
 ```
+全 44 件のテストが PASS すれば、環境構築は正常に完了です。
 
 実施内容
 ・各機能ごとに Feature テスト を作成
