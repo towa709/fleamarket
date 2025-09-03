@@ -59,7 +59,7 @@ class ShippingAddressTest extends TestCase
     $this->get(route('purchase.success', [
       'item_id' => $item->id,
       'payment' => 'card'
-    ]))->assertRedirect(route('mypage'));
+    ]))->assertRedirect('/');
 
     // DBに住所が保存されているか確認
     $this->assertDatabaseHas('transactions', [
