@@ -15,12 +15,18 @@ sudo chown -R $(whoami):$(whoami) src
 1. `docker-compose exec php bash`
 2. `composer install`
 3. '.env.example'ファイルを コピーして'.env'を作成し、DBの設定を変更
-`cp .env.example .env`
+4. `cp .env.example .env`
 ``` text
 DB_HOST=mysql
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_FROM_ADDRESS=example@test.com
+MAIL_FROM_NAME="Fleamarket App"
 ```
 5. アプリケーションキーの作成
 ``` bash
