@@ -1,0 +1,134 @@
+.item-container {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 8px 20px 20px 20px;
+  background-color: #fff;
+}
+
+.tab-wrapper {
+  justify-content: left;
+  margin-top: 50px;
+}
+
+.tab-menu {
+  justify-content: center;
+  gap: 40px;
+  border-bottom: 2px solid #ccc;
+  min-width: 300px;
+  padding-left: 250px;
+}
+
+.tab {
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.tab.active {
+  color: red;
+  font-size: 20px;
+}
+
+.item-list {
+  display: grid;
+  grid-template-columns: repeat(4, 350px);
+  row-gap: 100px;
+  column-gap: 75px;
+  margin-left: 15px;
+  margin-top: 60px;
+  justify-content: center;
+}
+
+.item-card {
+  text-align: center;
+  width: 350px;
+}
+
+.item-image {
+  width: 100%;
+  height: 300px;
+  line-height: 150px;
+  font-size: 16px;
+  color: #333;
+}
+
+.item-name {
+  margin-top: 50px;
+  font-size: 20px;
+  text-align: left;
+}
+
+/* --- PCの特定幅 (1400px〜1540px) --- */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+  .item-list {
+    grid-template-columns: repeat(4, 350px);
+    column-gap: 60px;
+  }
+}
+
+/* --- タブレットの特定幅 (768px〜850px) --- */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+  .item-list {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    row-gap: 80px;
+  }
+
+  .item-card {
+    width: 100%;
+  }
+}
+
+.item-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.item-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.item-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sold-ribbon {
+  position: absolute;
+  top: 10px;
+  left: -30px;
+  width: 120px;
+  background: red;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+  font-weight: bold;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.favorite-empty-message {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.tab-content.hide {
+  display: none;
+}
+
+.tab-content.show {
+  display: block;
+}

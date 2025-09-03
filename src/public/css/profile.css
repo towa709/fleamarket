@@ -1,0 +1,131 @@
+/* =========================
+   プロフィール設定ページ
+========================= */
+.container {
+  max-width: 600px;
+  margin: 80px auto 50px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.form-group:first-of-type {
+  margin-top: 20px;
+}
+
+.profile-title {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+/* プロフィール画像とボタン */
+.profile-image-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 60px;
+  flex-direction: row;
+  margin-left: -200px;
+}
+
+.profile-avatar img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #ddd;
+  object-fit: cover;
+}
+
+/* ファイル選択ボタン */
+.file-button {
+  display: inline-block;
+  border: 1px solid #ff6666;
+  padding: 6px 12px;
+  color: #ff3333;
+  background-color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.file-button:hover {
+  background-color: #ffecec;
+}
+
+.file-button input[type="file"] {
+  display: none;
+}
+
+/* 入力フォーム */
+.form-group {
+  margin-bottom: 45px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.container input[type="text"],
+.container input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* 保存ボタン */
+.container button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff6666;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.container button[type="submit"]:hover {
+  background-color: #ff4d4d;
+}
+
+/* --- PC (1400px〜1540px) --- */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+  .item-list {
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: repeat(4, 350px);
+    column-gap: 60px;
+  }
+}
+
+/* --- タブレット (768px〜850px) --- */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+  .item-container {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+}
+
+/* エラーメッセージ */
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.search-box {
+  font-size: 30px !important;
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  margin-left: 40px;
+}

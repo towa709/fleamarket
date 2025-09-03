@@ -1,0 +1,296 @@
+/* =========================
+   出品ページ専用スタイル
+========================= */
+
+/* 出品ページ全体にスコープをかける */
+.item-create-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+  background-color: #fff;
+}
+
+/* 出品ページ専用タイトル */
+.item-create-container .form-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* 出品ページ専用フォーム部品 */
+.item-create-container .form-group {
+  margin-bottom: 24px;
+}
+
+.item-create-container label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* セクションタイトル */
+.item-create-container .section-block {
+  margin: 30px 0 15px 0;
+}
+
+.item-create-container .section-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* 商品画像アップロード */
+.image-upload-box {
+  position: relative;
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.image-input {
+  display: none;
+}
+
+.image-label {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 10px 2px;
+  border: 2px solid #f44336;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #f44336;
+  background: #fff;
+  transition: 0.2s;
+  max-width: 120px;
+}
+
+.image-label:hover {
+  background: #f44336;
+  color: #fff;
+}
+
+.section-block .section-title {
+  margin-top: 70px;
+  font-size: 20px;
+  color: #8d8787;
+}
+
+/* カテゴリー */
+.item-create-container .category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.item-create-container .category-checkbox {
+  display: none;
+}
+
+.item-create-container .category-label {
+  display: inline-block;
+  padding: 6px 16px;
+  border: 2px solid #f44336;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #f44336;
+  background: #fff;
+  transition: 0.2s;
+}
+
+.item-create-container .category-checkbox:checked+.category-label {
+  background: #f44336;
+  color: #fff;
+  border-color: #f44336;
+}
+
+/* プルダウン（白黒基調、カスタムデザイン） */
+.item-create-container .custom-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.custom-select .selected {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  z-index: 10;
+  position: relative;
+}
+
+.custom-select .selected.placeholder {
+  color: #000000;
+}
+
+/* ▼ 矢印（三角形） */
+.custom-select .selected::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid #666;
+  pointer-events: none;
+}
+
+/* ▼ 開いた時は選択部分を透明化 */
+.custom-select.open .selected {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* ▼ 選択肢リスト */
+.custom-select .options {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #444;
+  border: 2px solid #000;
+  border-top: none;
+  border-radius: 4px;
+  margin-top: 0;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.custom-select .options li {
+  position: relative;
+  padding: 12px 12px 12px 28px;
+  color: #fff;
+  margin: 0;
+  transition: background 0.2s;
+}
+
+.custom-select .options li:hover {
+  background: #4A90E2;
+  border-radius: 10px;
+}
+
+.custom-select .options li.selected {
+  background: #444;
+  color: #fff;
+  font-weight: bold;
+}
+
+.custom-select .options li.selected::before {
+  content: "✔ ";
+  font-size: 1rem;
+  color: #ffffff;
+  font-weight: bold;
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 入力欄 */
+.item-create-container input[type="text"],
+.item-create-container input[type="number"],
+.item-create-container textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.item-create-container input:focus,
+.item-create-container textarea:focus {
+  border-color: #f44336;
+  outline: none;
+}
+
+/* 価格入力フィールド */
+.price-field {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  padding: 0 8px;
+}
+
+.price-field span {
+  font-weight: bold;
+  margin-right: 4px;
+  color: #333;
+}
+
+.price-field input {
+  flex: 1;
+  border: none !important;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+  background: transparent;
+}
+
+/* 出品するボタン */
+.item-create-container .btn-submit {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: #f44336;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+  margin-bottom: 10px;
+  margin-top: 85px;
+}
+
+.item-create-container .btn-submit:hover {
+  background: #d32f2f;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+/* プレビュー画像 */
+.image-preview {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 3;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 140px;
+  object-fit: contain;
+  border-radius: 5px;
+}

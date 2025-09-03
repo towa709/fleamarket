@@ -1,0 +1,73 @@
+/* =========================
+   会員登録ページ専用
+========================= */
+.container {
+  width: min(94vw, 720px);
+  margin: 60px auto;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 6px;
+}
+
+.register-title {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 1.6rem;
+}
+
+.form-group {
+  margin-bottom: 30px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+.btn-login {
+  display: block;
+  width: 100%;
+  background-color: #ff6b6b;
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 40px;
+}
+
+.btn-login:hover {
+  background-color: #ff4c4c;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.register-link a {
+  color: #5555ff;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}

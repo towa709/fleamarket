@@ -1,0 +1,52 @@
+/* =========================
+   メール認証誘導ページ専用
+========================= */
+.verify-container {
+  max-width: 800px;
+  margin: 80px auto;
+  padding: 40px 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+/* メッセージ部分 */
+.verify-message {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+/* 認証ボタン */
+.verify-button {
+  display: inline-block;
+  padding: 12px 30px;
+  font-size: 18px;
+  border: 1px solid #000;
+  background-color: #d8d2d2;
+  color: #000;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.verify-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* 再送リンク */
+.verify-resend {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #0066cc;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.verify-alert {
+  margin-top: 15px;
+  color: green;
+  font-weight: bold;
+}

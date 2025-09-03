@@ -1,0 +1,176 @@
+/* =========================
+   ページ上部タイトル帯
+========================= */
+.page-header {
+  background-color: #111;
+  padding: 0;
+}
+
+.page-title {
+  text-align: left;
+  color: #ccc;
+  font-size: 20px;
+  padding: 4px 0;
+}
+
+/* =========================
+   シンプルロゴ帯（ログイン前）
+========================= */
+.simple-header {
+  background-color: #000;
+  padding: 12px 0;
+  text-align: left;
+}
+
+.simple-logo {
+  height: 30px;
+}
+
+/* =========================
+   ヘッダー共通デザイン
+========================= */
+.header {
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  padding: 10px 24px;
+  gap: 20px;
+}
+
+/* 左：ロゴ */
+.header-left {
+  flex: 1;
+}
+
+.logo {
+  height: 60px;
+  margin-right: 10px;
+}
+
+/* 中央：検索 */
+.header-center {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.search-form {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  align-items: center;
+}
+
+.search-box {
+  width: 100%;
+  padding: 8px 16px;
+  font-size: 30px;
+  border-radius: 4px;
+  border: none;
+  margin-left: 40px;
+}
+
+.search-submit {
+  display: none;
+}
+
+/* 右：メニュー */
+.header-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.menu-button {
+  padding: 20px 10px;
+  border: 1px solid #020202;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 25px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.listing-button {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 20px 40px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* =========================
+   レスポンシブ調整
+========================= */
+
+/* --- PCの特定幅 (1400px〜1540px) --- */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+  .item-container {
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+
+  .item-list {
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: repeat(4, 350px);
+    column-gap: 60px;
+  }
+
+  .header {
+    padding: 10px 40px;
+    /* ヘッダー余白 */
+  }
+
+  .menu-button {
+    font-size: 18px;
+    padding: 12px 10px;
+  }
+
+  .listing-button {
+    padding: 12px 30px;
+    font-size: 18px;
+  }
+}
+
+/* --- タブレットの特定幅 (768px〜850px) --- */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+  .item-container {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .item-list {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    row-gap: 80px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .item-card {
+    width: 100%;
+  }
+
+  .header {
+    flex-wrap: wrap;
+    padding: 10px 20px;
+  }
+
+  .menu-button {
+    font-size: 14px;
+    padding: 8px 6px;
+  }
+
+  .listing-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .search-box {
+    font-size: 18px;
+    margin-left: 10px;
+  }
+}
