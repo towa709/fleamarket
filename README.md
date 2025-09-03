@@ -5,11 +5,17 @@
 3. DockerDesktopアプリを立ち上げる
 4. `docker-compose up -d --build`
 
+※注意事項  
+初回ビルド後、`src/` ディレクトリが root 権限になる場合があります。  
+その際は以下を実行して権限を修正してください：  
+```bash
+sudo chown -R $(whoami):$(whoami) src
+```
 **Laravel環境構築**
 1. `docker-compose exec php bash`
-2.`composer create-project laravel/laravel .`
-(3. `composer install`)
-5. '.env.example'ファイルを コピーして'.env'を作成し、DBの設定を変更
+2.`composer install`
+3. '.env.example'ファイルを コピーして'.env'を作成し、DBの設定を変更
+cp .env.example .env
 ``` text
 DB_HOST=mysql
 DB_DATABASE=laravel_db
