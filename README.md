@@ -1,3 +1,30 @@
+## プロジェクト概要
+このプロジェクトは Laravel を用いたフリマアプリです。  
+ユーザーは会員登録・ログイン後に商品を出品・購入することができ、  
+メール認証・コメント・お気に入り（マイリスト）・検索・Stripe による決済機能などを備えています。  
+
+## 使用技術
+- Laravel 11
+- PHP 8.2
+- MySQL 8.0
+- Docker / docker-compose
+- Nginx
+- MailHog
+- phpMyAdmin
+- Stripe Checkout
+
+
+## テストユーザー情報
+Seeder によって以下のユーザーが登録済みです。ログイン確認に使用してください。
+
+- 管理者ユーザー（id:1）
+  - Email: tanaka@example.com
+  - Password: password123
+
+- 一般ユーザー（例）
+  - Email: sato@example.com
+  - Password: password123
+
 ## 環境構築
 **Dockerビルド**
 1. `git clone git@github.com:towa709/fleamarket.git`
@@ -64,7 +91,25 @@ chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 ```
 
-9. テストの実行
+9. テスト用データベースの作成  
+テストは `laravel_test` データベースを使用します。  
+初回のみ以下を実行して DB を作成してください。
+
+```bash
+docker-compose exec mysql bash
+mysql -u root -p
+```
+
+MySQL コンソールに入ったら以下を入力：
+
+CREATE DATABASE IF NOT EXISTS laravel_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+GRANT ALL PRIVILEGES ON laravel_test.* TO 'laravel_user'@'%';
+FLUSH PRIVILEGES;
+EXIT;
+```
+これでテスト用 DB が準備されます。
+
+10. テストの実行
 ```bash
 php artisan test --env=testing
 ```
