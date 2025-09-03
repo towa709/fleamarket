@@ -11,13 +11,21 @@
 ```bash
 sudo chown -R $(whoami):$(whoami) src
 ```
+MySQL の初期化エラー（--initialize specified but the data directory has files in it）が出る場合は、以下でデータディレクトリを削除して再起動してください：
+```bash
+docker-compose down
+sudo rm -rf ./docker/mysql/data/*
+docker-compose up -d
+```
 **Laravel環境構築**
 1. `docker-compose exec php bash`
 2. `composer install`
 3. '.env.example'ファイルを コピーして'.env'を作成し、DBの設定を変更
 4. `cp .env.example .env`
 ``` text
+DB_CONNECTION=mysql
 DB_HOST=mysql
+DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
