@@ -103,3 +103,4 @@ ER図は、要件定義シートのテーブル仕様書に貼り付け済み。
 ## URL
 - 開発環境：http://localhost
 - phpMyAdmin:：http://localhost:8080
+- Mailhog: http://localhost:8025
