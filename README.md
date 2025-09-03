@@ -27,7 +27,15 @@ MAIL_HOST=mailhog
 MAIL_PORT=1025
 MAIL_FROM_ADDRESS=example@test.com
 MAIL_FROM_NAME="Fleamarket App"
+
+# Stripe API キー（開発環境用のテストキーを設定）
+STRIPE_KEY=your_stripe_public_key_here
+STRIPE_SECRET=your_stripe_secret_key_here
 ```
+# 注意
+STRIPE_KEY と STRIPE_SECRET は Stripe ダッシュボードから取得してください。
+ここではダミー値が入っています。
+
 5. アプリケーションキーの作成
 ``` bash
 php artisan key:generate
