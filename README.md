@@ -101,7 +101,7 @@ mysql -u root -p
 ```
 
 MySQL コンソールに入ったら以下を入力：
-
+```bash
 CREATE DATABASE IF NOT EXISTS laravel_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 GRANT ALL PRIVILEGES ON laravel_test.* TO 'laravel_user'@'%';
 FLUSH PRIVILEGES;
