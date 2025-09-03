@@ -49,6 +49,10 @@ php artisan migrate
 ``` bash
 php artisan db:seed
 ```
+8. ストレージのリンク作成（画像保存用）
+```bash
+php artisan storage:link
+```
 実施内容
 ・各機能ごとに Feature テスト を作成
 ・会員登録・ログイン・ログアウト
