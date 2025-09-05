@@ -10,6 +10,10 @@
 3. DockerDesktopアプリを立ち上げる
 4. `docker-compose up -d --build`
 
+ 上記の手順は任意の作業ディレクトリで実行可能です。  
+   例: Linux/WSL 環境では `/home/ユーザー名/coachtech/fleamarket`、  
+   Windows 環境では `C:\Users\ユーザー名\coachtech\fleamarket` など。
+
 **Laravel環境構築**
 1. `docker-compose exec php bash`
 2. `composer install`
@@ -34,7 +38,7 @@ STRIPE_KEY と STRIPE_SECRET は Stripe ダッシュボードから取得して�
   https://dashboard.stripe.com/test/apikeys
 ```
 **注意**
-初回ビルド及び.envコピー後、`src/` ディレクトリが root 権限になりますので、以下を必ず実行して権限を修正して、保存してください。  
+初回ビルド及び.envコピー後、`src/` ディレクトリが root 権限になりますので、以下を必ず実行して権限を修正し、保存してください。  
 ```bash
 sudo chown -R $(whoami):$(whoami) .
 ```
@@ -65,7 +69,7 @@ Seeder によって以下のユーザーが登録済みです。ログイン確�
 - 一般ユーザー（例）
   - Email: sato@example.com
   - Password: password123
-  
+
 
 7. ストレージのリンク作成（画像保存用）
 ```bash
@@ -126,7 +130,7 @@ php artisan test --env=testing
 ・php artisan test --env=testing を実行
 ・合計 44 件のテストケースを作成し、すべて PASS
 
-結論
+###結論
 仕様書に記載された全ての要件を満たしている
 PHPUnit テストによって機能の正常動作を確認済み
 特にメール認証と Stripe 決済処理について、仕様通りのフローを実装・確認できた
@@ -149,15 +153,3 @@ PHPUnit テストによって機能の正常動作を確認済み
 - MailHog
 - phpMyAdmin
 - Stripe Checkout
-
-
-## テストユーザー情報
-Seeder によって以下のユーザーが登録済みです。ログイン確認に使用してください。
-
-- 管理者ユーザー（id:1）
-  - Email: tanaka@example.com
-  - Password: password123
-
-- 一般ユーザー（例）
-  - Email: sato@example.com
-  - Password: password123
