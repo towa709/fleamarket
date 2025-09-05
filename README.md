@@ -34,7 +34,7 @@ STRIPE_KEY と STRIPE_SECRET は Stripe ダッシュボードから取得して�
   https://dashboard.stripe.com/test/apikeys
 ```
 **注意**
-初回ビルド及び.envコピー後、`src/` ディレクトリが root 権限になりますので、以下を必ず実行して権限を修正してください：  
+初回ビルド及び.envコピー後、`src/` ディレクトリが root 権限になりますので、以下を必ず実行して権限を修正して、保存してください。  
 ```bash
 sudo chown -R $(whoami):$(whoami) .
 ```
@@ -44,7 +44,7 @@ sudo chown -R $(whoami):$(whoami) .
 php artisan key:generate
 ```
 
-6. マイグレーションの実行時に、MySQL の初期化エラー（--initialize specified but the data directory has files in it）が出ます。以下でデータディレクトリを削除して再起動した後、再度マイグレーションを実行してください。
+6. マイグレーションの実行時に、MySQL の初期化エラー（--initialize specified but the data directory has files in it）が出ます。以下のコマンドを順に実行してデータディレクトリを削除して再起動してから、マイグレーションを実行してください。
 ```bash
 docker-compose down
 sudo rm -rf ./docker/mysql/data/*
@@ -55,6 +55,17 @@ docker-compose up -d
 php artisan migrate --seed
 ```
 ※これでマイグレーションとデータ投入は完了です
+## テストユーザー情報
+Seeder によって以下のユーザーが登録済みです。ログイン確認に使用してください。
+
+- 管理者ユーザー（id:1）
+  - Email: tanaka@example.com
+  - Password: password123
+
+- 一般ユーザー（例）
+  - Email: sato@example.com
+  - Password: password123
+  
 
 7. ストレージのリンク作成（画像保存用）
 ```bash
