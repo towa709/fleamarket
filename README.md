@@ -19,6 +19,12 @@
 2. `composer install`
 3. '.env.example'ファイルを コピーして'.env'を作成し、DBの設定を変更
 4. `cp .env.example .env`
+
+**注意**
+初回ビルド及び.envコピー後、`src/` ディレクトリが root 権限になりますので、以下を必ずプロジェクトのルートディレクトリで実行して権限を修正してから保存してください。  
+```bash
+sudo chown -R $(whoami):$(whoami) .
+```
 ``` text
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -37,18 +43,14 @@ STRIPE_KEY と STRIPE_SECRET は Stripe ダッシュボードから取得して�
  Stripe テストキーはこちらから取得できます:  
   https://dashboard.stripe.com/test/apikeys
 ```
-**注意**
-初回ビルド及び.envコピー後、`src/` ディレクトリが root 権限になりますので、以下を必ず実行して権限を修正し、保存してください。  
-```bash
-sudo chown -R $(whoami):$(whoami) .
-```
 
 5. アプリケーションキーの作成
 ``` bash
+docker-compose exec php bash
 php artisan key:generate
 ```
 
-6. マイグレーションの実行時に、MySQL の初期化エラー（--initialize specified but the data directory has files in it）が出ます。以下のコマンドを順に実行してデータディレクトリを削除して再起動してから、マイグレーションを実行してください。
+6. マイグレーションの実行時に、MySQL の初期化エラー（--initialize specified but the data directory has files in it）が出ます。以下のコマンドを順にプロジェクトのルートディレクトリで実行してデータディレクトリを削除して再起動してから、マイグレーションを実行してください。
 ```bash
 docker-compose down
 sudo rm -rf ./docker/mysql/data/*
@@ -56,6 +58,7 @@ docker-compose up -d
 ```
 
 ``` bash
+docker-compose exec php bash
 php artisan migrate --seed
 ```
 ※これでマイグレーションとデータ投入は完了です
@@ -106,7 +109,7 @@ php artisan test --env=testing
 ```
 全 44 件のテストが PASS すれば、環境構築は正常に完了です。
 
-実施内容
+### 実施内容
 ・各機能ごとに Feature テスト を作成
 ・会員登録・ログイン・ログアウト
 ・メール認証（認証メール送信／認証リンクによる認証完了／未認証時のアクセス制御）
@@ -130,7 +133,7 @@ php artisan test --env=testing
 ・php artisan test --env=testing を実行
 ・合計 44 件のテストケースを作成し、すべて PASS
 
-###結論
+### 結論
 仕様書に記載された全ての要件を満たしている
 PHPUnit テストによって機能の正常動作を確認済み
 特にメール認証と Stripe 決済処理について、仕様通りのフローを実装・確認できた
