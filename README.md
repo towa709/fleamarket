@@ -3,32 +3,10 @@
 ユーザーは会員登録・ログイン後に商品を出品・購入することができ、  
 メール認証・コメント・お気に入り（マイリスト）・検索・Stripe による決済機能などを備えています。  
 
-## 使用技術
-- Laravel 11
-- PHP 8.2
-- MySQL 8.0
-- Docker / docker-compose
-- Nginx
-- MailHog
-- phpMyAdmin
-- Stripe Checkout
-
-
-## テストユーザー情報
-Seeder によって以下のユーザーが登録済みです。ログイン確認に使用してください。
-
-- 管理者ユーザー（id:1）
-  - Email: tanaka@example.com
-  - Password: password123
-
-- 一般ユーザー（例）
-  - Email: sato@example.com
-  - Password: password123
-
 ## 環境構築
 **Dockerビルド**
 1. `git clone git@github.com:towa709/fleamarket.git`
-2.`cd fleamarket`
+2. `cd fleamarket`
 3. DockerDesktopアプリを立ち上げる
 4. `docker-compose up -d --build`
 
@@ -48,17 +26,15 @@ DB_PASSWORD=laravel_pass
 MAIL_FROM_ADDRESS=example@test.com
 MAIL_FROM_NAME="Fleamarket App"
 
-# Stripe API キー（開発環境用のテストキーを設定）
 STRIPE_KEY=your_stripe_public_key_here
 STRIPE_SECRET=your_stripe_secret_key_here
-```
-# 注意
-STRIPE_KEY と STRIPE_SECRET は Stripe ダッシュボードから取得してください。
-ここではダミー値が入っています。
+# Stripe API キー（開発環境用のテストキーを設定）
+STRIPE_KEY と STRIPE_SECRET は Stripe ダッシュボードから取得してください。ここではダミー値が入っています。
  Stripe テストキーはこちらから取得できます:  
   https://dashboard.stripe.com/test/apikeys
-また、初回ビルド後、`src/` ディレクトリが root 権限になる場合があります。  
-その際は以下を実行して権限を修正してください：  
+```
+**注意**
+初回ビルド及び.envコピー後、`src/` ディレクトリが root 権限になりますので、以下を必ず実行して権限を修正してください：  
 ```bash
 sudo chown -R $(whoami):$(whoami) .
 ```
@@ -68,7 +44,7 @@ sudo chown -R $(whoami):$(whoami) .
 php artisan key:generate
 ```
 
-6. マイグレーションの実行時に、MySQL の初期化エラー（--initialize specified but the data directory has files in it）が出る場合は、以下でデータディレクトリを削除して再起動した後、再度マイグレーションを実行してください。
+6. マイグレーションの実行時に、MySQL の初期化エラー（--initialize specified but the data directory has files in it）が出ます。以下でデータディレクトリを削除して再起動した後、再度マイグレーションを実行してください。
 ```bash
 docker-compose down
 sudo rm -rf ./docker/mysql/data/*
@@ -84,7 +60,7 @@ php artisan migrate --seed
 ```bash
 php artisan storage:link
 ```
-8.  アクセス時に Permission denied エラーが出る場合は以下を実行してください。
+8.  アクセス時に Permission denied エラーが出る場合は以下を実行してください。（http://localhost）
 ```bash
 docker-compose exec php bash
 chown -R www-data:www-data storage bootstrap/cache
@@ -146,9 +122,31 @@ PHPUnit テストによって機能の正常動作を確認済み
 
 ## ER図
 
-ER図は、要件定義シートのテーブル仕様書に貼り付け済み。
+![ER図](./docs/er.png)
 
 ## URL
 - 開発環境：http://localhost
 - phpMyAdmin: http://localhost:8080
 - MailHog: http://localhost:8025
+
+## 使用技術
+- Laravel 11
+- PHP 8.2
+- MySQL 8.0
+- Docker / docker-compose
+- Nginx
+- MailHog
+- phpMyAdmin
+- Stripe Checkout
+
+
+## テストユーザー情報
+Seeder によって以下のユーザーが登録済みです。ログイン確認に使用してください。
+
+- 管理者ユーザー（id:1）
+  - Email: tanaka@example.com
+  - Password: password123
+
+- 一般ユーザー（例）
+  - Email: sato@example.com
+  - Password: password123
