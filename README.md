@@ -60,6 +60,7 @@ docker-compose up -d
 ``` bash
 docker-compose exec php bash
 php artisan migrate --seed
+php artisan migrate:fresh --seed
 ```
 ※これでマイグレーションとデータ投入は完了です
 ## テストユーザー情報
