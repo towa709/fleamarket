@@ -75,7 +75,7 @@
       if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-          previewImg.src = e.target.result; // 選択した画像を即表示
+          previewImg.src = e.target.result; 
         }
         reader.readAsDataURL(file);
       }

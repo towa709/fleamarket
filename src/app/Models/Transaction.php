@@ -34,4 +34,24 @@ class Transaction extends Model
   {
     return $this->belongsTo(User::class, 'seller_id');
   }
+
+  public function scopeInProgress($query)
+  {
+    return $query->whereNull('completed_at');
+  }
+
+  public function scopeCompleted($query)
+  {
+    return $query->whereNotNull('completed_at');
+  }
+
+  public function messages()
+  {
+    return $this->hasMany(Message::class);
+  }
+
+  public function evaluations()
+  {
+    return $this->hasMany(Evaluation::class);
+  }
 }

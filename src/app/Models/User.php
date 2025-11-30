@@ -10,16 +10,12 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Item;
 use App\Models\Transaction;
 use App\Models\Favorite;
+use App\Models\Evaluation;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
   use HasApiTokens, HasFactory, Notifiable;
 
-  /**
-   * The attributes that are mass assignable.
-   *
-   * @var array<int, string>
-   */
   protected $fillable = [
     'name',
     'email',
@@ -30,41 +26,39 @@ class User extends Authenticatable implements MustVerifyEmail
     'profile_image',
   ];
 
-  /**
-   * The attributes that should be hidden for serialization.
-   *
-   * @var array<int, string>
-   */
   protected $hidden = [
     'password',
     'remember_token',
   ];
 
-  /**
-   * The attributes that should be cast.
-   *
-   * @var array<string, string>
-   */
   protected $casts = [
     'email_verified_at' => 'datetime',
   ];
 
-  // 🔹 購入履歴（transactions.buyer_id 経由）
   public function purchases()
   {
     return $this->hasMany(Transaction::class, 'buyer_id');
   }
 
-  // 🔹 出品履歴（transactions.seller_id 経由）
   public function sales()
   {
     return $this->hasMany(Transaction::class, 'seller_id');
   }
 
-  // 🔹 お気に入り（Favorite モデル経由）
   public function favorites()
   {
     return $this->belongsToMany(Item::class, 'favorites', 'user_id', 'item_id')
       ->withTimestamps();
+  }
+
+  public function receivedEvaluations()
+  {
+    return $this->hasMany(Evaluation::class, 'evaluated_id');
+  }
+
+  public function averageScore()
+  {
+    $avg = $this->receivedEvaluations()->avg('score');
+    return $avg ? round($avg) : null;
   }
 }

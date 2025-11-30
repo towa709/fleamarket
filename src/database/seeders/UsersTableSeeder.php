@@ -10,7 +10,6 @@ class UsersTableSeeder extends Seeder
 {
   public function run()
   {
-    // 外部キー制約を維持しながら削除
     DB::table('users')->delete();
     DB::statement('ALTER TABLE users AUTO_INCREMENT = 1');
 
@@ -26,6 +25,7 @@ class UsersTableSeeder extends Seeder
         'profile_image' => 'profiles/user1.jpg',
         'email_verified_at' => now(),
       ],
+
       [
         'id' => 2,
         'name' => '佐藤 美咲',
@@ -37,6 +37,7 @@ class UsersTableSeeder extends Seeder
         'profile_image' => 'profiles/user2.jpg',
         'email_verified_at' => now(),
       ],
+
       [
         'id' => 3,
         'name' => '鈴木 大和',
@@ -46,28 +47,6 @@ class UsersTableSeeder extends Seeder
         'address' => '大阪府大阪市北区梅田1-1-1',
         'building' => '梅田タワー1503',
         'profile_image' => 'profiles/user3.jpg',
-        'email_verified_at' => now(),
-      ],
-      [
-        'id' => 4,
-        'name' => '高橋 由衣',
-        'email' => 'takahashi@example.com',
-        'password' => Hash::make('password123'),
-        'postcode' => '4600002',
-        'address' => '愛知県名古屋市中区栄2-2-2',
-        'building' => '栄レジデンス305',
-        'profile_image' => 'profiles/user4.jpg',
-        'email_verified_at' => now(),
-      ],
-      [
-        'id' => 5,
-        'name' => '伊藤 蓮',
-        'email' => 'ito@example.com',
-        'password' => Hash::make('password123'),
-        'postcode' => '0600001',
-        'address' => '北海道札幌市中央区北1条1-1',
-        'building' => '札幌シティハイツ502',
-        'profile_image' => 'profiles/user5.jpg',
         'email_verified_at' => now(),
       ],
     ]);

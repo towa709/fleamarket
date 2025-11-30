@@ -1,19 +1,20 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ProfileController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+  Route::get('/chat/list', [ChatController::class, 'list']);
+  Route::get('/chat/partner/{transaction_id}', [ChatController::class, 'getPartner']);
+  Route::get('/chat/{transaction_id}', [ChatController::class, 'getMessages']);
+  Route::post('/chat/{transaction_id}', [ChatController::class, 'storeMessage']);
+  Route::post('/chat/{transaction_id}/read', [ChatController::class, 'markAsRead']);
 });
+
+Route::get('/mypage/progress-list', [ProfileController::class, 'progressList']);
+Route::get('/notifications/unread-total', [ProfileController::class, 'unreadTotal']);
+Route::get('/notifications/unread-list', [ProfileController::class, 'unreadList']);
+
+Route::patch('/chat/message/{message}', [ChatController::class, 'update']);
+Route::delete('/chat/message/{message}', [ChatController::class, 'destroy']);

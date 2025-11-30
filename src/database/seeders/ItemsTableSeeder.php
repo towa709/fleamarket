@@ -9,11 +9,11 @@ class ItemsTableSeeder extends Seeder
 {
   public function run()
   {
-    // 既存データ削除 & AUTO_INCREMENTリセット
     DB::table('items')->delete();
     DB::statement('ALTER TABLE items AUTO_INCREMENT = 1');
 
     $items = [
+      // CO01〜CO05 → 出品者A（user_id = 1）
       [
         'user_id' => 1,
         'name' => '腕時計',
@@ -64,8 +64,10 @@ class ItemsTableSeeder extends Seeder
         'condition' => '良好',
         'is_sold' => 0,
       ],
+
+      // CO06〜CO10 → 出品者B（user_id = 2）
       [
-        'user_id' => 1,
+        'user_id' => 2,
         'name' => 'マイク',
         'price' => 3000,
         'brand' => 'なし',
@@ -75,7 +77,7 @@ class ItemsTableSeeder extends Seeder
         'is_sold' => 0,
       ],
       [
-        'user_id' => 1,
+        'user_id' => 2,
         'name' => 'ショルダーバッグ',
         'price' => 8000,
         'brand' => 'なし',
@@ -85,7 +87,7 @@ class ItemsTableSeeder extends Seeder
         'is_sold' => 0,
       ],
       [
-        'user_id' => 1,
+        'user_id' => 2,
         'name' => 'タンブラー',
         'price' => 500,
         'brand' => 'なし',
@@ -95,7 +97,7 @@ class ItemsTableSeeder extends Seeder
         'is_sold' => 0,
       ],
       [
-        'user_id' => 1,
+        'user_id' => 2,
         'name' => 'コーヒーミル',
         'price' => 4000,
         'brand' => 'Starbacks',
@@ -105,7 +107,7 @@ class ItemsTableSeeder extends Seeder
         'is_sold' => 0,
       ],
       [
-        'user_id' => 1,
+        'user_id' => 2,
         'name' => 'メイクセット',
         'price' => 2500,
         'brand' => 'なし',

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\EvaluationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,14 @@ Route::middleware(['auth'])->group(function () {
   Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
   Route::get('/mypage', [ProfileController::class, 'mypage'])->name('mypage');
 });
+
+Route::middleware(['auth'])->group(function () {
+  Route::get('/chat/{transaction_id}', [\App\Http\Controllers\ChatController::class, 'show'])->name('chat.show');
+  Route::post('/chat/{transaction_id}', [\App\Http\Controllers\ChatController::class, 'storeMessage'])->name('chat.store');
+});
+
+Route::post('/evaluation/{transaction}', [EvaluationController::class, 'store'])
+  ->name('evaluation.store');
 
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 
@@ -32,7 +41,6 @@ Route::middleware('auth')->group(function () {
   Route::get('/purchase/success/{item_id}', [PurchaseController::class, 'success'])->name('purchase.success');
 });
 
-// 決済画面
 Route::post('/checkout', [App\Http\Controllers\PurchaseController::class, 'checkout'])->name('checkout');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -40,18 +48,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::post('/sell', [ItemController::class, 'store'])->name('items.store');
 });
 
-// 認証メール送信後の案内画面
 Route::get('/email/verify', function () {
   return view('auth.verify');
 })->middleware('auth')->name('verification.notice');
 
-// 認証リンクをクリックした後の処理
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
   $request->fulfill();
-  return redirect()->route('items.index'); // 商品一覧へ遷移
+  return redirect()->route('items.index');
 })->middleware(['auth', 'signed', 'throttle:6,1'])->name('verification.verify');
 
-// 認証メール再送
 Route::post('/email/verification-notification', function (Request $request) {
   $request->user()->sendEmailVerificationNotification();
   return back()->with('message', '認証メールを再送しました。');
