@@ -21,10 +21,11 @@
 4. `cp .env.example .env`
 
 **注意**
-初回ビルド及び.envコピー後、`src/` ディレクトリが root 権限になりますので、以下を必ずプロジェクトのルートディレクトリで実行して権限を修正してから保存してください。  
+1.  初回ビルド及び.envコピー後、`src/` ディレクトリが root 権限になりますので、以下を必ずプロジェクトのルートディレクトリで実行して権限を正してから保存してください。  
 ```bash
 sudo chown -R $(whoami):$(whoami) .
 ```
+
 ``` text
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -43,6 +44,31 @@ STRIPE_KEY と STRIPE_SECRET は Stripe ダッシュボードから取得して�
  Stripe テストキーはこちらから取得できます:  
   https://dashboard.stripe.com/test/apikeys
 ```
+2. .env が読まれない場合の対処方法
+  　Docker 環境では、初回ビルド時に .env が正しく読み込まれず
+  　`env('KEY') が null になる場合があります。その場合、以下を実行してください。
+
+```bash
+rm -f bootstrap/cache/config.php
+rm -f bootstrap/cache/packages.php
+rm -f bootstrap/cache/services.php
+```
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+php artisan route:clear
+```
+```bash
+docker-compose restart
+```
+```bash
+docker-compose exec php bash
+php artisan tinker
+env('STRIPE_KEY');
+env('STRIPE_SECRET');
+```
+以上を、実行して値が返ってくれば .env が正常に読み込まれています。
 
 5. アプリケーションキーの作成
 ``` bash
