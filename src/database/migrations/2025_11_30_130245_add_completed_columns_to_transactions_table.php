@@ -14,13 +14,8 @@ class AddCompletedColumnsToTransactionsTable extends Migration
   public function up()
   {
     Schema::table('transactions', function (Blueprint $table) {
-      $table->boolean('buyer_requested_complete')
-        ->default(false)
-        ->after('seller_completed_at');
-
-      $table->boolean('seller_requested_complete')
-        ->default(false)
-        ->after('buyer_requested_complete');
+      $table->boolean('buyer_requested_complete')->default(0);
+      $table->boolean('seller_requested_complete')->default(0);
     });
   }
 

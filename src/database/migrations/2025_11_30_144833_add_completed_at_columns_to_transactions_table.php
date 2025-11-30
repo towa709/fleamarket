@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCompletedAtToTransactionsTable extends Migration
+class AddCompletedAtColumnsToTransactionsTable extends Migration
 {
   /**
    * Run the migrations.
@@ -14,14 +14,15 @@ class AddCompletedAtToTransactionsTable extends Migration
   public function up()
   {
     Schema::table('transactions', function (Blueprint $table) {
-      $table->timestamp('completed_at')->nullable()->after('purchased_at');
+      $table->timestamp('buyer_completed_at')->nullable();
+      $table->timestamp('seller_completed_at')->nullable();
     });
   }
 
   public function down()
   {
     Schema::table('transactions', function (Blueprint $table) {
-      $table->dropColumn('completed_at');
+      $table->dropColumn(['buyer_completed_at', 'seller_completed_at']);
     });
   }
 }
