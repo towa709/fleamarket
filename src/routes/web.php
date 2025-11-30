@@ -22,6 +22,11 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
   Route::get('/chat/{transaction_id}', [\App\Http\Controllers\ChatController::class, 'show'])->name('chat.show');
   Route::post('/chat/{transaction_id}', [\App\Http\Controllers\ChatController::class, 'storeMessage'])->name('chat.store');
+
+  Route::post(
+    '/chat/{transaction_id}/complete',
+    [\App\Http\Controllers\ChatController::class, 'complete']
+  )->name('chat.complete');
 });
 
 Route::post('/evaluation/{transaction}', [EvaluationController::class, 'store'])

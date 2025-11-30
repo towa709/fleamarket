@@ -27,17 +27,20 @@ class EvaluationController extends Controller
     ]);
 
     if ($userId == $transaction->buyer_id) {
-      $product = $transaction->item;
-      $buyer   = $transaction->buyer;
-      $seller  = $transaction->seller;
+      $transaction->buyer_completed_at = now();
+    } else {
+      $transaction->seller_completed_at = now();
+    }
 
-      Mail::to($seller->email)->send(
-        new TransactionCompletedMail($product, $buyer)
+    $transaction->save();
+
+    if ($userId == $transaction->buyer_id) {
+      Mail::to($transaction->seller->email)->send(
+        new TransactionCompletedMail($transaction->item, $transaction->buyer)
       );
     }
 
-    $evalCount = Evaluation::where('transaction_id', $transaction->id)->count();
-    if ($evalCount >= 2) {
+    if ($transaction->buyer_completed_at && $transaction->seller_completed_at) {
       $transaction->completed_at = now();
       $transaction->save();
     }

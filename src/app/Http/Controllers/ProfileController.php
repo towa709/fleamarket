@@ -58,18 +58,27 @@ class ProfileController extends Controller
       ->with('item')
       ->get();
 
-    $progress = Transaction::where(function ($q) use ($user) {
-      $q->where('buyer_id', $user->id)
-        ->orWhere('seller_id', $user->id);
-    })
-      ->whereNull('completed_at')
+    $buyerProgress = Transaction::where('buyer_id', $user->id)
+      ->whereNull('buyer_completed_at')
       ->with('item')
       ->leftJoin('messages', 'transactions.id', '=', 'messages.transaction_id')
       ->select('transactions.*')
       ->selectRaw('MAX(messages.created_at) as last_message_time')
       ->groupBy('transactions.id')
-      ->orderByDesc('last_message_time')
       ->get();
+
+    $sellerProgress = Transaction::where('seller_id', $user->id)
+      ->whereNull('seller_completed_at')
+      ->with('item')
+      ->leftJoin('messages', 'transactions.id', '=', 'messages.transaction_id')
+      ->select('transactions.*')
+      ->selectRaw('MAX(messages.created_at) as last_message_time')
+      ->groupBy('transactions.id')
+      ->get();
+
+    $progress = $buyerProgress->merge($sellerProgress)
+      ->sortByDesc('last_message_time')
+      ->values();
 
     foreach ($progress as $transaction) {
       $transaction->unread_count = \App\Models\Message::where('transaction_id', $transaction->id)
@@ -99,12 +108,15 @@ class ProfileController extends Controller
   {
     $userId = Auth::id();
 
-    $progress = Transaction::where(function ($q) use ($userId) {
-      $q->where('buyer_id', $userId)
-        ->orWhere('seller_id', $userId);
-    })
-      ->whereNull('completed_at')
+    $buyerProgress = Transaction::where('buyer_id', $userId)
+      ->whereNull('buyer_completed_at')
       ->get();
+
+    $sellerProgress = Transaction::where('seller_id', $userId)
+      ->whereNull('seller_completed_at')
+      ->get();
+
+    $progress = $buyerProgress->merge($sellerProgress);
 
     $total = 0;
 
@@ -124,12 +136,15 @@ class ProfileController extends Controller
   {
     $userId = Auth::id();
 
-    $progress = Transaction::where(function ($q) use ($userId) {
-      $q->where('buyer_id', $userId)
-        ->orWhere('seller_id', $userId);
-    })
-      ->whereNull('completed_at')
+    $buyerProgress = Transaction::where('buyer_id', $userId)
+      ->whereNull('buyer_completed_at')
       ->get();
+
+    $sellerProgress = Transaction::where('seller_id', $userId)
+      ->whereNull('seller_completed_at')
+      ->get();
+
+    $progress = $buyerProgress->merge($sellerProgress);
 
     $list = [];
 
@@ -141,7 +156,7 @@ class ProfileController extends Controller
 
       $list[] = [
         'transaction_id' => $transaction->id,
-        'unread_count' => $count,
+        'unread_count'   => $count,
       ];
     }
 
@@ -152,13 +167,17 @@ class ProfileController extends Controller
   {
     $userId = Auth::id();
 
-    $progress = Transaction::where(function ($q) use ($userId) {
-      $q->where('buyer_id', $userId)
-        ->orWhere('seller_id', $userId);
-    })
-      ->whereNull('completed_at')
+    $buyerProgress = Transaction::where('buyer_id', $userId)
+      ->whereNull('buyer_completed_at')
       ->with('item')
       ->get();
+
+    $sellerProgress = Transaction::where('seller_id', $userId)
+      ->whereNull('seller_completed_at')
+      ->with('item')
+      ->get();
+
+    $progress = $buyerProgress->merge($sellerProgress);
 
     $result = [];
 
@@ -176,14 +195,14 @@ class ProfileController extends Controller
 
       $result[] = [
         'transaction_id' => $transaction->id,
-        'item_name' => $transaction->item ? $transaction->item->name : '商品名なし',
-        'item_image' => ($transaction->item && $transaction->item->img_url)
+        'item_name'      => $transaction->item ? $transaction->item->name : '商品名なし',
+        'item_image'     => ($transaction->item && $transaction->item->img_url)
           ? (Str::startsWith($transaction->item->img_url, 'http')
             ? $transaction->item->img_url
             : asset('storage/' . $transaction->item->img_url))
           : asset('images/no-image.png'),
-        'unread_count' => $unread,
-        'last_time' => $lastTime,
+        'unread_count'   => $unread,
+        'last_time'      => $lastTime,
       ];
     }
 

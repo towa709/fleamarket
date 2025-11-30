@@ -13,28 +13,25 @@ class ChatController extends Controller
 {
   public function show($transaction_id)
   {
-    $transaction = Transaction::with(['item'])->findOrFail($transaction_id);
-
+    $transaction = Transaction::with('item')->findOrFail($transaction_id);
     $me = Auth::id();
 
-    $partnerId = ($transaction->buyer_id == $me)
-      ? $transaction->seller_id
-      : $transaction->buyer_id;
+    $isBuyer = ($transaction->buyer_id == $me);
 
-    $userEvaluated = \App\Models\Evaluation::where('transaction_id', $transaction_id)
-      ->where('evaluator_id', $me)
-      ->exists();
-
-    $partnerEvaluated = \App\Models\Evaluation::where('transaction_id', $transaction_id)
-      ->where('evaluator_id', $partnerId)
-      ->exists();
-
-    $shouldEvaluate = (!$userEvaluated && $partnerEvaluated);
+    if ($isBuyer) {
+      $shouldEvaluate =
+        $transaction->buyer_requested_complete &&
+        is_null($transaction->buyer_completed_at);
+    } else {
+      $shouldEvaluate =
+        $transaction->buyer_requested_complete &&
+        is_null($transaction->seller_completed_at);
+    }
 
     return view('chat.show', [
       'transaction_id' => $transaction_id,
-      'transaction' => $transaction,
-      'item' => $transaction->item,
+      'transaction'    => $transaction,
+      'item'           => $transaction->item,
       'shouldEvaluate' => $shouldEvaluate,
     ]);
   }
@@ -190,5 +187,21 @@ class ChatController extends Controller
     if ($message->user_id !== Auth::id()) {
       abort(403);
     }
+  }
+
+  public function complete($transaction_id)
+  {
+    $transaction = Transaction::findOrFail($transaction_id);
+    $me = Auth::id();
+
+    if ($transaction->buyer_id == $me) {
+      $transaction->buyer_requested_complete = true;
+    } elseif ($transaction->seller_id == $me) {
+      $transaction->seller_requested_complete = true;
+    }
+
+    $transaction->save();
+
+    return response()->json(['status' => 'ok']);
   }
 }

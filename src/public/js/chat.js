@@ -44,7 +44,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   if (finishBtn) {
-    finishBtn.addEventListener("click", () => {
+    finishBtn.addEventListener("click", async () => {
+
+      await fetch(`/chat/${window.TRANSACTION_ID}/complete`, {
+        method: "POST",
+        headers: {
+          "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+          "Accept": "application/json",
+        },
+      });
+
       if (modal) modal.classList.remove("hide");
     });
   }
