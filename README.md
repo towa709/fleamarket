@@ -44,31 +44,6 @@ STRIPE_KEY と STRIPE_SECRET は Stripe ダッシュボードから取得して�
  Stripe テストキーはこちらから取得できます:  
   https://dashboard.stripe.com/test/apikeys
 ```
-2. .env が読まれない場合の対処方法
-  　Docker 環境では、初回ビルド時に .env が正しく読み込まれず
-  　`env('KEY') が null になる場合があります。その場合、以下を実行してください。
-
-```bash
-rm -f bootstrap/cache/config.php
-rm -f bootstrap/cache/packages.php
-rm -f bootstrap/cache/services.php
-```
-```bash
-php artisan config:clear
-php artisan cache:clear
-php artisan view:clear
-php artisan route:clear
-```
-```bash
-docker-compose restart
-```
-```bash
-docker-compose exec php bash
-php artisan tinker
-env('STRIPE_KEY');
-env('STRIPE_SECRET');
-```
-以上を、実行して値が返ってくれば .env が正常に読み込まれています。
 
 5. アプリケーションキーの作成
 ``` bash
@@ -165,6 +140,33 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 これでテスト用 DB が準備されます。
+
+**注意**
+2. .env が読まれない場合の対処方法
+  　Docker 環境では、初回ビルド時に .env が正しく読み込まれず
+  　`env('KEY') が null になる場合があります。その場合、以下を実行してください。
+
+```bash
+rm -f bootstrap/cache/config.php
+rm -f bootstrap/cache/packages.php
+rm -f bootstrap/cache/services.php
+```
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+php artisan route:clear
+```
+```bash
+docker-compose restart
+```
+```bash
+docker-compose exec php bash
+php artisan tinker
+env('STRIPE_KEY');
+env('STRIPE_SECRET');
+```
+以上を、実行して値が返ってくれば .env が正常に読み込まれています。
 
 11. テストの実行
 ```bash
