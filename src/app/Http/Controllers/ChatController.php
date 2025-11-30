@@ -123,16 +123,25 @@ class ChatController extends Controller
     $userId = Auth::id();
 
     $transactions = Transaction::where(function ($q) use ($userId) {
-      $q->where('buyer_id', $userId)
-        ->orWhere('seller_id', $userId);
+
+      $q->where(function ($qq) use ($userId) {
+        $qq->where('buyer_id', $userId)
+          ->whereNull('buyer_completed_at');
+      })
+
+        ->orWhere(function ($qq) use ($userId) {
+          $qq->where('seller_id', $userId)
+            ->whereNull('seller_completed_at');
+        });
     })
-      ->whereNull('completed_at')
-      ->with(['item'])
+      ->with('item')
       ->get();
+
 
     $result = [];
 
     foreach ($transactions as $transaction) {
+
       $latest = Message::where('transaction_id', $transaction->id)
         ->orderByDesc('created_at')
         ->first();
@@ -143,20 +152,21 @@ class ChatController extends Controller
         ->count();
 
       $result[] = [
-        'transaction_id' => $transaction->id,
-        'item_name' => $transaction->item ? $transaction->item->name : '商品名なし',
-        'item_image' => ($transaction->item && $transaction->item->img_url)
+        'transaction_id'      => $transaction->id,
+        'item_name'           => $transaction->item ? $transaction->item->name : '商品名なし',
+        'item_image'          => ($transaction->item && $transaction->item->img_url)
           ? (Str::startsWith($transaction->item->img_url, 'http')
             ? $transaction->item->img_url
             : asset('storage/' . $transaction->item->img_url))
           : asset('images/no-image.png'),
-        'unread_count' => $unread,
+        'unread_count'        => $unread,
         'latest_message_time' => $latest ? $latest->created_at : null,
       ];
     }
 
     usort($result, function ($a, $b) {
-      return strtotime($b['latest_message_time']) <=> strtotime($a['latest_message_time']);
+      return strtotime($b['latest_message_time'])
+        <=> strtotime($a['latest_message_time']);
     });
 
     return response()->json($result);
