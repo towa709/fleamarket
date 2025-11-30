@@ -57,9 +57,15 @@ sudo rm -rf ./docker/mysql/data/*
 docker-compose up -d
 ```
 
-``` bash
+7. 設定キャッシュクリア
+```bash
 docker-compose exec php bash
-php artisan migrate --seed
+php artisan config:clear
+php artisan cache:clear
+php artisan config:cache
+```
+
+``` bash
 php artisan migrate:fresh --seed
 ```
 ※これでマイグレーションとデータ投入は完了です
@@ -105,18 +111,18 @@ Seeder によって以下のユーザーが登録済みです。ログイン確�
 - 建物: 梅田タワー1503
 - ダミーデータ商品出品: 無し。
 
-7. ストレージのリンク作成（画像保存用）
+8. ストレージのリンク作成（画像保存用）
 ```bash
 php artisan storage:link
 ```
-8.  アクセス時に Permission denied エラーが出る場合は以下を実行してください。（http://localhost）
+9.  アクセス時に Permission denied エラーが出る場合は以下を実行してください。（http://localhost）
 ```bash
 docker-compose exec php bash
 chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 ```
 
-9. テスト用データベースの作成  
+10. テスト用データベースの作成  
 テストは `laravel_test` データベースを使用します。  
 初回のみ以下を実行して DB を作成してください。
 
@@ -134,7 +140,7 @@ EXIT;
 ```
 これでテスト用 DB が準備されます。
 
-10. テストの実行
+11. テストの実行
 ```bash
 php artisan test --env=testing
 ```
