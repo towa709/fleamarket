@@ -59,8 +59,7 @@
 
     <form id="chat-form" enctype="multipart/form-data">
 
-      <input type="file" name="image" id="image-input"
-             accept="image/png,image/jpeg" style="display:none">
+      <input type="file" name="image" id="image-input" style="display:none">
 
       <div class="input-area">
 
@@ -69,10 +68,13 @@
             <img id="preview-img" class="preview-img" alt="">
           </div>
 
-          <textarea name="message" id="message-input"
-            placeholder="取引メッセージを記入してください"
-            maxlength="400"></textarea>
-        </div>
+          <textarea
+             name="message"
+             id="message-input"
+             placeholder="取引メッセージを記入してください"
+          ></textarea>
+
+          </div>
 
         <button type="button" id="add-image" class="add-image-button">
           画像を追加
@@ -118,9 +120,7 @@
       : asset('images/default-avatar.png')
   );
 </script>
-
 <script src="{{ asset('js/chat.js') }}"></script>
-
 <script>
   document.getElementById('add-image').addEventListener('click', () => {
     document.getElementById('image-input').click();

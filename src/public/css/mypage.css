@@ -80,7 +80,7 @@
 .tab-menu::after {
   content: "";
   position: absolute;
-  left: -800px;
+  left: -570px;
   bottom: 0;
   width: 100vw;
   height: 2px;
@@ -95,17 +95,19 @@
 
 .item-list {
   display: grid;
-  grid-template-columns: repeat(4, 350px);
-  row-gap: 100px;
-  column-gap: 75px;
-  margin-left: 15px;
-  margin-top: 60px;
-  justify-content: center;
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
+  column-gap: 40px;
+  row-gap: 60px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 60px auto 0;
 }
 
 .item-card {
   text-align: center;
-  width: 350px;
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto;
   position: relative;
 }
 
@@ -212,9 +214,33 @@
   .tab-menu .tab-sell {
     margin-left: -250px;
   }
+
+  .item-list {
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 40px;
+    row-gap: 60px;
+    max-width: 1000px;
+    margin: 60px auto 0;
+  }
+
+  .item-card {
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+
+  .item-image {
+    height: 250px;
+  }
+
+  .tab-menu::after {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+  }
 }
 
-@media screen and (min-width: 768px) and (max-width: 850px) {
+@media screen and (min-width: 768px) and (max-width: 900px) {
 
   .item-list {
     grid-template-columns: repeat(2, minmax(300px, 1fr));
@@ -251,10 +277,18 @@
     margin-left: 0;
   }
 
+  .tab-menu::after {
+    left: 0;
+    width: 100%;
+  }
+
   .star-rating {
-    left: 50%;
-    transform: translateX(-50%);
-    top: 220px;
+    position: static !important;
+    transform: none !important;
+    left: auto;
+    top: auto;
+    margin: -90px 0 0 !important;
+    justify-content: center;
   }
 }
 

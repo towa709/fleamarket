@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Item;
 use App\Models\Transaction;
-use App\Models\Favorite;
 use App\Models\Evaluation;
 
 class User extends Authenticatable implements MustVerifyEmail
