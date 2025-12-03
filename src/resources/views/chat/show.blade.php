@@ -74,7 +74,7 @@
              placeholder="取引メッセージを記入してください"
           ></textarea>
 
-          </div>
+        </div>
 
         <button type="button" id="add-image" class="add-image-button">
           画像を追加
