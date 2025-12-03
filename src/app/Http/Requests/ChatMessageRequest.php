@@ -14,8 +14,8 @@ class ChatMessageRequest extends FormRequest
   public function rules()
   {
     return [
-      'message' => 'required|string|max:400',
-      'image'   => 'nullable|file|mimes:jpeg,png',
+      'message' => ['required', 'string', 'max:400'],
+      'image'   => ['nullable', 'file', 'mimes:jpeg,png'],
     ];
   }
 

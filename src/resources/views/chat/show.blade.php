@@ -26,7 +26,6 @@
 </div>
 
 <div class="chat-wrapper">
-
   <aside class="chat-sidebar">
     <h2 class="sidebar-title">その他の取引</h2>
     <ul class="sidebar-list" id="transaction-list"></ul>
@@ -54,15 +53,12 @@
     </div>
 
     <div class="message-area" id="message-area"></div>
-
     <div id="chat-error-box" class="chat-error-box"></div>
 
     <form id="chat-form" enctype="multipart/form-data">
-
       <input type="file" name="image" id="image-input" style="display:none">
 
       <div class="input-area">
-
         <div class="input-wrapper">
           <div id="image-preview" class="image-preview" style="display:none;">
             <img id="preview-img" class="preview-img" alt="">
@@ -73,13 +69,11 @@
              id="message-input"
              placeholder="取引メッセージを記入してください"
           ></textarea>
-
         </div>
 
         <button type="button" id="add-image" class="add-image-button">
           画像を追加
         </button>
-
         <button type="submit" id="send-message" class="send-button">
           <img src="{{ asset('images/send-icon.png') }}" class="send-icon" alt="">
         </button>
@@ -121,6 +115,7 @@
   );
 </script>
 <script src="{{ asset('js/chat.js') }}"></script>
+
 <script>
   document.getElementById('add-image').addEventListener('click', () => {
     document.getElementById('image-input').click();
